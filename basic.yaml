@@ -20,5 +20,6 @@
     - name: print the global variable
       ansible.builtin_shell: "ansible --version"
       register: version_output
-  debug:
-    msg: "The version is {{ version_output.stdout }}"
+    - name: print the version output
+      debug:
+      msg: "The version is {{ version_output.stdout }}"
