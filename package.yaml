@@ -1,0 +1,9 @@
+package.yaml:
+  - name: demo on package management
+    hosts: all
+    become: true
+    tasks:
+      - name: install a package
+        ansible.builtin.package:
+          name: nginx
+          state: present
