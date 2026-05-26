@@ -10,11 +10,7 @@
       debug:
         msg: "The name is {{ name }}, the version is {{ version }}, and the URL is {{ URL }}"
 
-    - name: local variables
-      vars: 
-        local_name: "local variable"
-        debug:
-          msg: "The local name is {{ local_name }}"
+  
 - name: print the global variable
   hosts: all
   become: true
