@@ -1,4 +1,3 @@
-package.yaml:
   - name: demo on package management
     hosts: all
     become: true
