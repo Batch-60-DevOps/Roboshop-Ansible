@@ -14,10 +14,13 @@
         name: nginx
         state: started
         enabled: true
+        tags: check
+
     - name: remove a package
       ansible.builtin.package:
         name: nginx
         state: absent   
+        tags: remove
         
 
     
