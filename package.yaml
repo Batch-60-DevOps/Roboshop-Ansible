@@ -7,3 +7,12 @@ package.yaml:
         ansible.builtin.package:
           name: nginx
           state: present
+      - name: check if the service is running
+        ansible.builtin.service:
+          name: nginx
+          state: started
+          enabled: true
+      - name: remove a package
+        ansible.builtin.package:
+          name: nginx
+          state: absent
