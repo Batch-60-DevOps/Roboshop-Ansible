@@ -1,0 +1,11 @@
+- name: store the secret in a vault
+  hosts: all
+  become: true
+  vars:
+    secret: "mysecret"
+  tasks:
+    - name: store the secret in a vault
+      ansible.builtin.copy:
+        content: "{{ secret }}"
+        dest: /tmp/secret.txt
+        mode: '0600'
