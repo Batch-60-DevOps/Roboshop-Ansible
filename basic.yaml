@@ -22,4 +22,4 @@
       register: version_output
     - name: print the version output
       debug:
-      msg: "The version is {{ version_output.stdout }}"
+        msg: "The version is {{ version_output.stdout }}"
