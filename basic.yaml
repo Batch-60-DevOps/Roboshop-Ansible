@@ -1,0 +1,11 @@
+- name: demo on variables
+  hosts: all
+  become: true  
+  vars:
+    name: "ansible"
+    version: "2.14"
+    URL: "https://www.ansible.com/"
+  tasks:
+    - name: print the variables
+      debug:
+        msg: "The name is {{ name }}, the version is {{ version }}, and the URL is {{ URL }}"
