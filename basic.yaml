@@ -18,7 +18,7 @@
     version: "ansible version"
   tasks:
     - name: print the global variable
-      ansible.builtin_shell: "ansible --version"
+      ansible.builtin.shell: "ansible --version"
       register: version_output
     - name: print the version output
       debug:
