@@ -1,17 +1,18 @@
-  - name: demo on package management
-    hosts: all
-    become: true
-    tasks:
-      - name: install a package
-        ansible.builtin.package:
-          name: nginx
-          state: present
-      - name: check if the service is running
-        ansible.builtin.service:
-          name: nginx
-          state: started
-          enabled: true
-      - name: remove a package
-        ansible.builtin.package:
-          name: nginx
-          state: absent
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-playbook.json
+---
+- name: demo on package management
+  hosts: all
+  become: true
+  tasks:
+    - name: install a package
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: check if the service is running
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+    
