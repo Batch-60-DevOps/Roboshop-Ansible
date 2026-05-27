@@ -11,4 +11,4 @@ ansible all  -i inv -e "ansible_user=ec2-user ansible_password=DevOps321" -m ans
 
 run only on prod inventory with tags define to task perform end 
 
- ansible-playbook  -i inv -l prod package.yaml -e "ansibel_user=ec2-user ansible_password=DevOps321" --become --tags=check
+ ansible-playbook  -i inv -l prod package.yaml -e "ansible_user=ec2-user ansible_password=DevOps321" --become --tags=check
