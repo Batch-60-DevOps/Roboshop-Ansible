@@ -1,0 +1,9 @@
+- name: demo copy file
+  hosts: all
+  become: true
+  tasks:
+    - name: copy a file to the remote server
+      ansible.builtin.copy:
+        src: basic.yaml
+        dest: /home/ec2-user/
+        mode: '0644'
