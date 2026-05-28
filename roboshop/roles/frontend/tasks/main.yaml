@@ -9,4 +9,4 @@
     name: nginx
     state: present 
 - name: configure hostname
-  ansible.builtin.shell: set-hostname frontend.{{env}}
+  ansible.builtin.shell: set-hostname frontend.{{ env }}
