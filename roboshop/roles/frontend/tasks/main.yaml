@@ -1,0 +1,20 @@
+- name: diable default nginx version
+  ansible.buildin.dnf:
+    name: nginx
+    state: absent
+- name: enable nginx 1.24 version
+  ansible.buildin.dnf:
+    name: nginx
+    state: present
+    version: 1.24
+- name: copy nginx configuration file
+  ansible.buildin.package:
+    name: nginx
+    state: present
+- name: start nginx service
+  ansible.buildin.service:
+    name: nginx
+    state: started
+    enabled: true
+- name: configure hostname
+  ansible.buildin.shell: set-hostname frentend.{{env}}
