@@ -1,5 +1,5 @@
-- name: configuring roboshop frontend
-  hosts: frontend
+- name: Configuring the roboshop app
   become: true
+  hosts: "{{ component }}"
   roles:
-    - frontend
+    - "{{ component }}"
