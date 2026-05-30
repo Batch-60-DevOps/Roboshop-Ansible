@@ -1,40 +1,48 @@
+---
 - name: Disabling the default "{{ packageName }}" module
   ansible.builtin.shell: dnf module disable "{{ packageName }}" -y
+  # Changing dnf modules is non-idempotent by nature; we add changed_when to keep our play recap clean
+  changed_when: true
 
 - name: Enabling the default "{{ packageName }}" module
   ansible.builtin.shell: dnf module enable "{{ packageName }}":"{{ packageVersion }}" -y
+  changed_when: true
 
 - name: Installing "{{ packageName }}" 
   ansible.builtin.package:
     name: "{{ packageName }}" 
     state: present
 
-- name: Cleanup of the default "{{ packageName }}" content
+- name: Remove default OS Nginx index symlink to prevent page hijacking
   ansible.builtin.file:
-    path: /usr/share/"{{ packageName }}"/html
+    path: "/usr/share/{{ packageName }}/html/index.html"
     state: absent
 
-- name: Preparing the "{{ packageName }}" directory
+- name: Ensuring the clean target application directory exists
   ansible.builtin.file:
-    path: /usr/share/"{{ packageName }}"/html
+    path: "/usr/share/{{ packageName }}/html"
     state: directory
+    mode: '0755'
 
-- name: Download and extract frontend
+- name: Download and extract frontend application assets
   ansible.builtin.unarchive:
     src: "{{ url }}"
-    dest: /usr/share/"{{ packageName }}"/html
-    remote_src: yes           # If yes, download from the URL mentioned in src machine, if no, copy from local machine to remote machine
+    dest: "/usr/share/{{ packageName }}/html"
+    remote_src: yes
 
-- name: Updating the nginx configuration file
+- name: Updating the nginx configuration file from template
   ansible.builtin.template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
+  # This ensures that if there's a typo in your template, the playbook fails BEFORE restarting Nginx
+  validate: nginx -t -c %s
 
-- name: Starting "{{ packageName }}" service
+- name: Starting and enabling "{{ packageName }}" service
   ansible.builtin.service:
     name: "{{ packageName }}"
     enabled: yes
     state: restarted
 
-- name: Configuring the hostName
-  ansible.builtin.shell: set-hostname {{ component }}-{{ env }}
+- name: Configuring the managed node hostname permanently
+  ansible.builtin.shell: "hostnamectl set-hostname {{ component }}-{{ env }}"
+  become: true
