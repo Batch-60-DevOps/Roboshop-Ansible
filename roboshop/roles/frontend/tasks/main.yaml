@@ -35,7 +35,7 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
   # This ensures that if there's a typo in your template, the playbook fails BEFORE restarting Nginx
-  validate: nginx -t -c %s
+    validate: nginx -t -c %s
 
 - name: Starting and enabling "{{ packageName }}" service
   ansible.builtin.service:
